@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 class Top extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
-        body: Column(
+    return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               'ミニミニオリエンテーリング',
@@ -15,14 +16,19 @@ class Top extends StatelessWidget {
               ),
             ),
             Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 FlatButton(
-                  onPressed: () {},
                   child: Text('ユーザー'),
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/userLogin');
+                  },
                 ),
                 FlatButton(
-                  onPressed: () {},
                   child: Text('管理者'),
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/adminLogin');
+                  },
                 )
               ],
             ),

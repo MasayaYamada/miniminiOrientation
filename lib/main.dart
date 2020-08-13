@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mini_orientailing/admin_login.dart';
 import 'package:mini_orientailing/top.dart';
+import 'package:mini_orientailing/user_login.dart';
 
 void main() {
   runApp(MyApp());
@@ -26,6 +28,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (BuildContext context) => Top(),
+        '/userLogin': (BuildContext context) => UserLogin(),
+        '/adminLogin': (BuildContext context) => AdminLogin(),
       },
     );
   }
