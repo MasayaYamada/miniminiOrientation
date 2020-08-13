@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
             ),
       ),
       initialRoute: '/',
+      debugShowCheckedModeBanner: false,
       routes: {
         '/': (BuildContext context) => Top(),
         '/userLogin': (BuildContext context) => UserLogin(),
