@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mini_orientailing/admin_login.dart';
+import 'package:mini_orientailing/administration/admin_home.dart';
+import 'package:mini_orientailing/administration/admin_login.dart';
 import 'package:mini_orientailing/top.dart';
 import 'package:mini_orientailing/user_login.dart';
 
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         '/': (BuildContext context) => Top(),
         '/userLogin': (BuildContext context) => UserLogin(),
         '/adminLogin': (BuildContext context) => AdminLogin(),
+        '/adminHome': (BuildContext context) => AdminHome(),
       },
     );
   }

@@ -14,11 +14,15 @@ class _UserLoginState extends State<UserLogin> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              'ユーザーログイン画面',
-              style: TextStyle(
-                color: Theme.of(context).textTheme.title.color,
+            RaisedButton(
+              child: Text(
+                'ユーザーログイン画面',
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.title.color,
+                ),
               ),
+              color: Colors.orange,
+              onPressed: () {},
             ),
           ],
         ),
