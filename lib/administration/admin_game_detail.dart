@@ -8,6 +8,16 @@ class AdminGameDetails extends StatefulWidget {
 class _AdminGameDetailsState extends State<AdminGameDetails> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("ゲーム設定画面"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () => setState(() {}),
+          ),
+        ],
+      ),
+    );
   }
 }
