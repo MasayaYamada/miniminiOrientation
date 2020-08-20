@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1002776865680",
+    "firebase_url": "https://minimini-orientation.firebaseio.com",
+    "project_id": "minimini-orientation",
+    "storage_bucket": "minimini-orientation.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1002776865680:android:915a609acd45a9d2986115",
+        "android_client_info": {
+          "package_name": "com.masatech.mini_orientailing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1002776865680-9sreml0clq65k3t153hsco4a3g4c6tgh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.masatech.mini_orientailing",
+            "certificate_hash": "0998f49a3f5166a881265cdcd829639811541ec0"
+          }
+        },
+        {
+          "client_id": "1002776865680-v39uq28gqdgnnrvvfug8surk1pln9d5h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvxO4rNOoKsvRRy5tpB4SaNsUQ87tlhvg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1002776865680-v39uq28gqdgnnrvvfug8surk1pln9d5h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

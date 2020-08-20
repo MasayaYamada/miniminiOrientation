@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:mini_orientailing/administration/admin_game_detail.dart';
 import 'package:mini_orientailing/administration/admin_home.dart';
 import 'package:mini_orientailing/administration/admin_login.dart';
+import 'package:mini_orientailing/administration/admin_sign_up.dart';
 import 'package:mini_orientailing/top.dart';
 import 'package:mini_orientailing/user_login.dart';
+
+import 'administration/admin_add_times.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,8 +35,11 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (BuildContext context) => Top(),
         '/userLogin': (BuildContext context) => UserLogin(),
-        '/adminLogin': (BuildContext context) => AdminLogin(),
         '/adminHome': (BuildContext context) => AdminHome(),
+        '/adminLogin': (BuildContext context) => AdminLogin(),
+        '/adminGameDetail': (BuildContext context) => AdminGameDetails(),
+        '/adminSignUp': (BuildContext context) => AdminSignUp(),
+        '/adminAddItems': (BuildContext context) => AdminAddItems(),
       },
     );
   }

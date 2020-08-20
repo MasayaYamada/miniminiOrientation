@@ -3,21 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>406146378470-dp19hl51g2str4ktm86gsqh69ptm7uja.apps.googleusercontent.com</string>
+	<string>1002776865680-4puua8f3j3nv42ufdsc9bs6q40dt83bh.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.406146378470-dp19hl51g2str4ktm86gsqh69ptm7uja</string>
+	<string>com.googleusercontent.apps.1002776865680-4puua8f3j3nv42ufdsc9bs6q40dt83bh</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1002776865680-9sreml0clq65k3t153hsco4a3g4c6tgh.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyClNkh23CHaGAedXuNhzgDC1Lftk8sB6GE</string>
+	<string>AIzaSyBhyTlPtlTSFI1nMUOVXw3AJbgCQnWnq1w</string>
 	<key>GCM_SENDER_ID</key>
-	<string>406146378470</string>
+	<string>1002776865680</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.masatech.miniOrientailing</string>
 	<key>PROJECT_ID</key>
-	<string>mini-orientation</string>
+	<string>minimini-orientation</string>
 	<key>STORAGE_BUCKET</key>
-	<string>mini-orientation.appspot.com</string>
+	<string>minimini-orientation.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +31,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:406146378470:ios:b44ed740c62f9bbd372927</string>
+	<string>1:1002776865680:ios:27a05d0432c99621986115</string>
 	<key>DATABASE_URL</key>
-	<string>https://mini-orientation.firebaseio.com</string>
+	<string>https://minimini-orientation.firebaseio.com</string>
 </dict>
 </plist>

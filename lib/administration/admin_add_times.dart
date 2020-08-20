@@ -8,6 +8,10 @@ class AdminAddItems extends StatefulWidget {
 class _AdminAddItemsState extends State<AdminAddItems> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("画像登録画面"),
+      ),
+    );
   }
 }

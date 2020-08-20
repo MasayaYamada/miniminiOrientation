@@ -14,9 +14,28 @@ class _AdminGameDetailsState extends State<AdminGameDetails> {
         actions: [
           IconButton(
             icon: Icon(Icons.add),
-            onPressed: () => setState(() {}),
+            onPressed: () => setState(() {
+              Navigator.of(context).pushNamed('/adminAddItems');
+            }),
           ),
         ],
+      ),
+      body: Container(
+        child: Container(
+          width: double.infinity,
+          child: GridView.count(
+            crossAxisCount: 2,
+            // Generate 100 widgets that display their index in the List.
+            children: List.generate(100, (index) {
+              return Center(
+                child: Text(
+                  'Item $index',
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+              );
+            }),
+          ),
+        ),
       ),
     );
   }
