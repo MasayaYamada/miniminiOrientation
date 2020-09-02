@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,7 @@ class _AdminLoginState extends State<AdminLogin> {
 
   bool _showPassword = true;
   final _fireBaseAuth = FirebaseAuth.instance;
+  final firestoreInstance = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -129,30 +131,43 @@ class _AdminLoginState extends State<AdminLogin> {
   void _signInEmail(AuthType type) async {
     final email = emailTextController.text;
     final password = passwordTextController.text;
-    AuthResult result;
+
     try {
       if (type == AuthType.signIn) {
         // 成功したらresultにユーザー情報が入る
-        result = await _signIn(email, password);
+        await _signIn(email, password);
       } else if (type == AuthType.signUp) {
+        // Firebaseにuidを入れる
+        insertDB(email);
         // 成功したらresultにユーザー情報が入る
-        result = await _signUp(email, password);
+        await _signUp(email, password);
       }
       // 成功したら画面遷移する
       Navigator.of(context).pushNamed('/adminHome');
-//      Navigator.pushNamed(context, 'routeName');
     } catch (e) {
       print(e);
       return;
     }
   }
 
-  Future<AuthResult> _signIn(String email, String password) async {
+  void insertDB(String email) async {
+    final user = _fireBaseAuth.currentUser;
+    final uid = user.uid;
+
+    firestoreInstance
+        .collection("adminUsers")
+        .doc(email)
+        .set({'adminId': uid}).then((_) {
+      print("insert success!");
+    });
+  }
+
+  Future<void> _signIn(String email, String password) async {
     return _fireBaseAuth.signInWithEmailAndPassword(
         email: email, password: password);
   }
 
-  Future<AuthResult> _signUp(String email, String password) async {
+  Future<void> _signUp(String email, String password) async {
     return _fireBaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
   }

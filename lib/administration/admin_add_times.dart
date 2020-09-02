@@ -12,6 +12,19 @@ class _AdminAddItemsState extends State<AdminAddItems> {
       appBar: AppBar(
         title: Text("画像登録画面"),
       ),
+      body: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(top: 50),
+          ),
+          Center(
+            child: IconButton(
+              icon: Icon(Icons.photo_camera),
+              onPressed: () {},
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

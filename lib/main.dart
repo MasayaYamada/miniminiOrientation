@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_orientailing/administration/admin_game_detail.dart';
 import 'package:mini_orientailing/administration/admin_home.dart';
@@ -8,7 +9,9 @@ import 'package:mini_orientailing/user_login.dart';
 
 import 'administration/admin_add_times.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
