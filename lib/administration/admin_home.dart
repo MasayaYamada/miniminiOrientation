@@ -1,52 +1,50 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class AdminHome extends StatefulWidget {
+  final String email;
+
+  AdminHome({@required this.email});
+
   @override
-  _AdminHomeState createState() => _AdminHomeState();
+  State<StatefulWidget> createState() {
+    return _AdminHomeState(this.email);
+  }
+
+// @override
+// _AdminHomeState createState() => _AdminHomeState();
 }
 
 class _AdminHomeState extends State<AdminHome> {
-  // Firebase google auth user info
-//  FirebaseUser userData;
-//  String name = "";
-//  String email;
-//  String photoUrl;
-//  final GoogleSignIn _googleSignIn = GoogleSignIn();
-//
-//  _AdminHOmeState(FirebaseUser userData) {
-//    this.userData = userData;
-//    this.name = userData.displayName;
-//    this.email = userData.email;
-//    this.photoUrl = userData.photoUrl;
-//  }
+  final fireStoreInstance = FirebaseFirestore.instance;
+  String email;
 
-//  Future<void> _handleSignOut() async {
-//    await FirebaseAuth.instance.signOut();
-//    try {
-//      await _googleSignIn.signOut();
-//    } catch (e) {
-//      print(e);
-//    }
-//    Navigator.pop(context);
-//  }
+  _AdminHomeState(this.email);
+
+  // var testEmail = 'test01@gmail.com';
 
   @override
   Widget build(BuildContext context) {
+    print("This email is $email");
     return Scaffold(
       appBar: AppBar(
         title: Text("管理者ホーム画面"),
       ),
-      body: Center(
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              RaisedButton(
-                child: Text('Game Selected'),
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/adminGameDetail');
-                },
-              ),
-            ]),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: fireStoreInstance.collection(email).snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          return ListView(
+            children: snapshot.data.docs.map((DocumentSnapshot document) {
+              if (snapshot.data != null) {
+                return Card(
+                  child: Column(
+                    children: [Text(document.data()["gameName"])],
+                  ),
+                );
+              }
+            }).toList(),
+          );
+        },
       ),
     );
   }

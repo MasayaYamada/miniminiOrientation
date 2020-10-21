@@ -1,6 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_orientailing/controller/make_random_game_number.dart';
+import 'package:uuid/uuid.dart';
+
+import 'admin_home.dart';
 
 class AdminLogin extends StatefulWidget {
   @override
@@ -13,7 +17,7 @@ class _AdminLoginState extends State<AdminLogin> {
 
   bool _showPassword = true;
   final _fireBaseAuth = FirebaseAuth.instance;
-  final firestoreInstance = FirebaseFirestore.instance;
+  final fireStoreInstance = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -143,22 +147,60 @@ class _AdminLoginState extends State<AdminLogin> {
         await _signUp(email, password);
       }
       // 成功したら画面遷移する
-      Navigator.of(context).pushNamed('/adminHome');
+      // Navigator.of(context).pushNamed('/adminHome');
+      Navigator.push(
+        context,
+        new MaterialPageRoute<Null>(
+          settings: const RouteSettings(name: "/adminHome"),
+          builder: (BuildContext context) => AdminHome(email: email),
+        ),
+      );
     } catch (e) {
       print(e);
       return;
     }
   }
 
-  void insertDB(String email) async {
-    final user = _fireBaseAuth.currentUser;
-    final uid = user.uid;
+  //TODO: For TEST add game number
+  void addNumber(String email) {
+    MakeRandomGameNumber gameNumberController = new MakeRandomGameNumber();
+    int gameNum = gameNumberController.getRandGameNum();
 
-    firestoreInstance
-        .collection("adminUsers")
+    final gameName = 'テストネーム$gameNum';
+
+    fireStoreInstance
+        .collection(email)
+        .doc(gameNum.toString())
+        .set({'gameName': gameName, 'gameId': gameNum.toString()}).then((_) {
+      print("insert game detail");
+    });
+  }
+
+  //TODO: erase to add gameId function
+  void insertDB(String email) async {
+    var uuid = Uuid();
+
+    final user = _fireBaseAuth.currentUser;
+    final userUid = user.uid;
+    final gameUid = uuid.v1();
+    final gameName = 'テストネーム２';
+
+    MakeRandomGameNumber gameNumberController = new MakeRandomGameNumber();
+    int gameNum = gameNumberController.getRandGameNum();
+
+    fireStoreInstance
+        .collection('adminUsers')
         .doc(email)
-        .set({'adminId': uid}).then((_) {
+        .set({'uid': userUid}).then((_) {
       print("insert success!");
+    });
+
+    // メールアドレスから、ゲーム番号を入れる
+    fireStoreInstance
+        .collection(email)
+        .doc(gameNum.toString())
+        .set({'gameName': gameName, 'gameId': gameNum.toString()}).then((_) {
+      print("insert game detail");
     });
   }
 

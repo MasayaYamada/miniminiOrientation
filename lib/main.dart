@@ -8,6 +8,7 @@ import 'package:mini_orientailing/top.dart';
 import 'package:mini_orientailing/user_login.dart';
 
 import 'administration/admin_add_times.dart';
+import 'model/User.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,6 +18,9 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
+  User user = new User();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
