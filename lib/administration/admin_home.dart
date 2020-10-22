@@ -37,8 +37,11 @@ class _AdminHomeState extends State<AdminHome> {
             children: snapshot.data.docs.map((DocumentSnapshot document) {
               if (snapshot.data != null) {
                 return Card(
-                  child: Column(
-                    children: [Text(document.data()["gameName"])],
+                  child: ListTile(
+                    title: Text(document.data()["gameName"]),
+                    onTap: () {
+                      print("tapped");
+                    },
                   ),
                 );
               }
