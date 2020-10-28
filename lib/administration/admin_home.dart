@@ -10,9 +10,6 @@ class AdminHome extends StatefulWidget {
   State<StatefulWidget> createState() {
     return _AdminHomeState(this.email);
   }
-
-// @override
-// _AdminHomeState createState() => _AdminHomeState();
 }
 
 class _AdminHomeState extends State<AdminHome> {
@@ -21,28 +18,36 @@ class _AdminHomeState extends State<AdminHome> {
 
   _AdminHomeState(this.email);
 
-  // var testEmail = 'test01@gmail.com';
-
   @override
   Widget build(BuildContext context) {
     print("This email is $email");
     return Scaffold(
       appBar: AppBar(
-        title: Text("管理者ホーム画面"),
+        title: Text("Admin Home Window"),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: fireStoreInstance.collection(email).snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return CircularProgressIndicator();
+          }
           return ListView(
             children: snapshot.data.docs.map((DocumentSnapshot document) {
-              if (snapshot.data != null) {
+              if (snapshot.data != null && !snapshot.hasError) {
                 return Card(
                   child: ListTile(
                     title: Text(document.data()["gameName"]),
                     onTap: () {
                       print("tapped");
+                      Navigator.pushNamed(context, '/adminGameDetail');
                     },
                   ),
+                );
+              } else if (document == null) {
+                return Center(child: Text('No data'));
+              } else {
+                return Center(
+                  child: Text('Woooops'),
                 );
               }
             }).toList(),

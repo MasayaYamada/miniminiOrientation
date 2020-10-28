@@ -183,7 +183,7 @@ class _AdminLoginState extends State<AdminLogin> {
     final user = _fireBaseAuth.currentUser;
     final userUid = user.uid;
     final gameUid = uuid.v1();
-    final gameName = 'テストネーム２';
+    final gameName = 'テストネーム1';
 
     MakeRandomGameNumber gameNumberController = new MakeRandomGameNumber();
     int gameNum = gameNumberController.getRandGameNum();
@@ -195,13 +195,13 @@ class _AdminLoginState extends State<AdminLogin> {
       print("insert success!");
     });
 
-    // メールアドレスから、ゲーム番号を入れる
-    fireStoreInstance
-        .collection(email)
-        .doc(gameNum.toString())
-        .set({'gameName': gameName, 'gameId': gameNum.toString()}).then((_) {
-      print("insert game detail");
-    });
+    // TODO: メールアドレスから、ゲーム番号を入れる
+    // fireStoreInstance
+    //     .collection(email)
+    //     .doc(gameNum.toString())
+    //     .set({'gameName': gameName, 'gameId': gameNum.toString()}).then((_) {
+    //   print("insert game detail");
+    // });
   }
 
   Future<void> _signIn(String email, String password) async {
