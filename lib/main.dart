@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_orientailing/administration/admin_add_games.dart';
 import 'package:mini_orientailing/administration/admin_game_detail.dart';
 import 'package:mini_orientailing/administration/admin_home.dart';
 import 'package:mini_orientailing/administration/admin_login.dart';
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
         '/adminGameDetail': (BuildContext context) => AdminGameDetails(),
         '/adminSignUp': (BuildContext context) => AdminSignUp(),
         '/adminAddItems': (BuildContext context) => AdminAddItems(),
+        '/adminAddGames': (BuildContext context) => AdminAddGames(),
       },
     );
   }

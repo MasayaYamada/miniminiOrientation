@@ -23,20 +23,35 @@ class _AdminHomeState extends State<AdminHome> {
     print("This email is $email");
     return Scaffold(
       appBar: AppBar(
-        title: Text("Admin Home Window"),
+        title: Text("管理者ホーム"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () => setState(() {
+              Navigator.of(context).pushNamed('/adminAddGames');
+            }),
+          ),
+        ],
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: fireStoreInstance.collection(email).snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
-            return CircularProgressIndicator();
+            return Center(child: CircularProgressIndicator());
           }
           return ListView(
             children: snapshot.data.docs.map((DocumentSnapshot document) {
               if (snapshot.data != null && !snapshot.hasError) {
                 return Card(
+                  margin: EdgeInsets.all(4.0),
                   child: ListTile(
-                    title: Text(document.data()["gameName"]),
+                    title: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text("ゲーム名: ${document.data()["gameName"]}  "),
+                          Text("ID：${document.data()["gameId"]}"),
+                        ]),
                     onTap: () {
                       print("tapped");
                       Navigator.pushNamed(context, '/adminGameDetail');
