@@ -61,7 +61,6 @@ class _AdminHomeState extends State<AdminHome> {
                           Text("ID：${document.data()["gameId"]}"),
                         ]),
                     onTap: () {
-                      print("tapped");
                       Navigator.pushNamed(context, '/adminGameDetail');
                     },
                   ),

@@ -33,6 +33,9 @@ dependencies:
   google_sign_in: ^4.5.1
   cloud_firestore: ^0.14.0+2
   uuid: ^2.2.2
+  camera: ^0.5.8+11
+  path_provider: ^1.6.22
+  path: ^1.7.0
 
 dev_dependencies:
   flutter_test:

@@ -14,7 +14,6 @@ class AdminAddGames extends StatefulWidget {
 }
 
 class _AdminAddGamesState extends State<AdminAddGames> {
-  // final _formKey = GlobalKey<FormState>();
   String email;
   var _gameTitle = TextEditingController();
   final fireStoreInstance = FirebaseFirestore.instance;
@@ -27,6 +26,7 @@ class _AdminAddGamesState extends State<AdminAddGames> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text("ゲーム登録画面"),
       ),

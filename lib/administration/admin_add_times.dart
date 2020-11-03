@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mini_orientailing/controller/camera_controller.dart';
 
 class AdminAddItems extends StatefulWidget {
   @override
@@ -6,24 +7,31 @@ class AdminAddItems extends StatefulWidget {
 }
 
 class _AdminAddItemsState extends State<AdminAddItems> {
+  CameraSubmitApp CameraApp = new CameraSubmitApp();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("画像登録画面"),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(top: 50),
-          ),
-          Center(
-            child: IconButton(
+      body: Container(
+        padding: const EdgeInsets.all(50.0),
+        child: Column(
+          children: [
+            IconButton(
               icon: Icon(Icons.photo_camera),
-              onPressed: () {},
+              onPressed: () {
+                //TODO: work camera
+                CameraApp;
+              },
             ),
-          ),
-        ],
+            RaisedButton(
+              onPressed: () {},
+              child: Text('登録'),
+            )
+          ],
+        ),
       ),
     );
   }
