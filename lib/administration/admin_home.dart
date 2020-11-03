@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_orientailing/administration/admin_add_games.dart';
 
 class AdminHome extends StatefulWidget {
   final String email;
@@ -28,7 +29,14 @@ class _AdminHomeState extends State<AdminHome> {
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () => setState(() {
-              Navigator.of(context).pushNamed('/adminAddGames');
+              Navigator.push(
+                context,
+                new MaterialPageRoute<Null>(
+                  settings: const RouteSettings(name: "/adminAddGames"),
+                  builder: (BuildContext context) =>
+                      AdminAddGames(email: email),
+                ),
+              );
             }),
           ),
         ],

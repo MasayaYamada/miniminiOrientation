@@ -1,13 +1,28 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_orientailing/controller/make_random_game_number.dart';
 
 class AdminAddGames extends StatefulWidget {
+  final String email;
+
+  AdminAddGames({@required this.email});
+
   @override
-  _AdminAddGamesState createState() => _AdminAddGamesState();
+  State<StatefulWidget> createState() {
+    return _AdminAddGamesState(this.email);
+  }
 }
 
 class _AdminAddGamesState extends State<AdminAddGames> {
   // final _formKey = GlobalKey<FormState>();
-  String _gameTitle = '';
+  String email;
+  var _gameTitle = TextEditingController();
+  final fireStoreInstance = FirebaseFirestore.instance;
+  var _text = '';
+
+  MakeRandomGameNumber makeRandomGameNumber = new MakeRandomGameNumber();
+
+  _AdminAddGamesState(this.email);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +34,7 @@ class _AdminAddGamesState extends State<AdminAddGames> {
         padding: const EdgeInsets.all(50.0),
         child: Column(
           children: [
-            TextFormField(
+            TextField(
               maxLength: 20,
               maxLengthEnforced: false,
               obscureText: false,
@@ -27,12 +42,7 @@ class _AdminAddGamesState extends State<AdminAddGames> {
                 hintText: 'ゲーム名を登録して下さい',
                 labelText: 'ゲーム名 *',
               ),
-              validator: (String value) {
-                return value.isEmpty ? '必須入力です' : null;
-              },
-              onSaved: (String value) {
-                this._gameTitle = value;
-              },
+              controller: _gameTitle,
             ),
             RaisedButton(
               onPressed: _submission,
@@ -45,10 +55,18 @@ class _AdminAddGamesState extends State<AdminAddGames> {
   }
 
   void _submission() {
-    // if (this._formKey.currentState.validate()) {
-    //   Scaffold.of(context)
-    //       .showSnackBar(SnackBar(content: Text('Processing Data')));
-    print(this._gameTitle);
-    // }
+    int randomNam = makeRandomGameNumber.getRandGameNum();
+
+    setState(() {
+      _text = _gameTitle.text;
+
+      fireStoreInstance
+          .collection(email)
+          .doc(randomNam.toString())
+          .set({'gameName': _text, 'gameId': randomNam.toString()}).then((_) {
+        print("insert game detail");
+      });
+    });
+    Navigator.of(context).pop();
   }
 }
