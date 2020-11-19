@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_orientailing/administration/admin_add_games.dart';
+import 'package:mini_orientailing/administration/admin_game_detail.dart';
 
 class AdminHome extends StatefulWidget {
   final String email;
@@ -61,7 +62,15 @@ class _AdminHomeState extends State<AdminHome> {
                           Text("ID：${document.data()["gameId"]}"),
                         ]),
                     onTap: () {
-                      Navigator.pushNamed(context, '/adminGameDetail');
+                      Navigator.push(
+                        context,
+                        new MaterialPageRoute<Null>(
+                          settings:
+                              const RouteSettings(name: "/adminGameDetail"),
+                          builder: (BuildContext context) => AdminGameDetails(
+                              email: email, gameId: document.data()["gameId"]),
+                        ),
+                      );
                     },
                   ),
                 );

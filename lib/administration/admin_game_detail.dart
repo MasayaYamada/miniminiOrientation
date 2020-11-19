@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:mini_orientailing/administration/admin_add_times.dart';
 
 class AdminGameDetails extends StatefulWidget {
+  final String email;
+  final String gameId;
+
+  AdminGameDetails({this.email, this.gameId});
+
   @override
-  _AdminGameDetailsState createState() => _AdminGameDetailsState();
+  _AdminGameDetailsState createState() =>
+      _AdminGameDetailsState(this.email, this.gameId);
 }
 
 class _AdminGameDetailsState extends State<AdminGameDetails> {
+  String email;
+  String gameId;
+
+  _AdminGameDetailsState(this.email, this.gameId);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +27,16 @@ class _AdminGameDetailsState extends State<AdminGameDetails> {
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () => setState(() {
-              Navigator.of(context).pushNamed('/adminAddItems');
+              Navigator.push(
+                context,
+                new MaterialPageRoute<Null>(
+                  settings: const RouteSettings(name: "/adminAddItems"),
+                  builder: (BuildContext context) => AdminAddItems(
+                    email: email,
+                    gameId: gameId,
+                  ),
+                ),
+              );
             }),
           ),
         ],

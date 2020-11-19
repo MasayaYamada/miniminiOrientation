@@ -61,6 +61,11 @@ class _AdminAddGamesState extends State<AdminAddGames> {
       _text = _gameTitle.text;
 
       fireStoreInstance
+          .collection('gameNumberList')
+          .doc(randomNam.toString())
+          .set({});
+
+      fireStoreInstance
           .collection(email)
           .doc(randomNam.toString())
           .set({'gameName': _text, 'gameId': randomNam.toString()}).then((_) {
