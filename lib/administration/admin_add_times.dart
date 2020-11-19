@@ -45,34 +45,33 @@ class _AdminAddItemsState extends State<AdminAddItems> {
   }
 
   void uploadFile() async {
+    String downloadURL;
     final ref =
-        FirebaseStorage.instance.ref().child('item_image').child('test.jpg');
-    final storedImage = await ref.putFile(_pickedImage);
+        FirebaseStorage.instance.ref().child('item_image').child('test4.jpg');
+    UploadTask uploadTask = ref.putFile(_pickedImage);
 
-    final String downloadUrl = await loadImage(storedImage);
+    uploadTask.whenComplete(() async {
+      try {
+        downloadURL = await ref.getDownloadURL();
 
-    fireStoreInstance
-        .collection(email)
-        .doc(gameId)
-        .collection('items')
-        .doc(_titleController.toString())
-        .set({
-      'imageTitle': _titleController.toString(),
-      'imagePoint': _pickedPoint.toString(),
-      'imageURL': downloadUrl
-    }).then((_) {
-      print("insert success!");
+        fireStoreInstance
+            .collection(email)
+            .doc(gameId)
+            .collection("items")
+            .doc(_titleController.text)
+            .set({
+          "imageTitle": _titleController.text,
+          "imagePoint": _pickedPoint.text,
+          "imageURL": downloadURL
+        }).then((_) {
+          print("insert success!");
+        });
+      } catch (onError) {
+        print("Down load Error");
+      }
     });
-  }
 
-  Future<String> loadImage(storedImage) async {
-    if (storedImage.error == null) {
-      print('storageに保存しました');
-      final String downloadUrl = await storedImage.ref.getDownloadURL();
-      return downloadUrl;
-    } else {
-      return null;
-    }
+    print('$gameId and YMD $email');
   }
 
   @override
