@@ -46,8 +46,13 @@ class _AdminAddItemsState extends State<AdminAddItems> {
 
   void uploadFile() async {
     String downloadURL;
-    final ref =
-        FirebaseStorage.instance.ref().child('item_image').child('test4.jpg');
+    DateTime date = DateTime.now();
+    String itemID = "${date.hour}${date.minute}${date.second}";
+
+    final ref = FirebaseStorage.instance
+        .ref()
+        .child('item_image')
+        .child('${_titleController.text}.jpg');
     UploadTask uploadTask = ref.putFile(_pickedImage);
 
     uploadTask.whenComplete(() async {
@@ -60,8 +65,9 @@ class _AdminAddItemsState extends State<AdminAddItems> {
             .collection("items")
             .doc(_titleController.text)
             .set({
-          "imageTitle": _titleController.text,
-          "imagePoint": _pickedPoint.text,
+          "itemId": itemID,
+          "itemTitle": _titleController.text,
+          "itemPoint": _pickedPoint.text,
           "imageURL": downloadURL
         }).then((_) {
           print("insert success!");

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_orientailing/administration/admin_add_times.dart';
 
@@ -15,6 +16,8 @@ class AdminGameDetails extends StatefulWidget {
 class _AdminGameDetailsState extends State<AdminGameDetails> {
   String email;
   String gameId;
+
+  final fireStoreInstance = FirebaseFirestore.instance;
 
   _AdminGameDetailsState(this.email, this.gameId);
 
@@ -41,22 +44,43 @@ class _AdminGameDetailsState extends State<AdminGameDetails> {
           ),
         ],
       ),
-      body: Container(
-        child: Container(
-          width: double.infinity,
-          child: GridView.count(
-            crossAxisCount: 2,
-            // Generate 100 widgets that display their index in the List.
-            children: List.generate(100, (index) {
-              return Center(
-                child: Text(
-                  'Item $index',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-              );
-            }),
-          ),
-        ),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: fireStoreInstance
+            .collection(email)
+            .doc(gameId)
+            .collection('items')
+            .snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return Center(child: CircularProgressIndicator());
+          }
+          return ListView(
+            children: snapshot.data.docs.map((DocumentSnapshot document) {
+              if (document.data() == null || snapshot.hasError) {
+                return Container(
+                  child: Text(
+                    'No Data!',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.red),
+                  ),
+                );
+              }
+              if (snapshot.data != null && !snapshot.hasError) {
+                return Card(
+                  margin: EdgeInsets.all(4.0),
+                  child: Dismissible(
+                    onDismissed: (direction) {},
+                    child: ListTile(
+                      leading: Image.network(document.data()["imageURL"]),
+                      title: Text(document.data()["itemTitle"]),
+                      subtitle: Text(document.data()["itemPoint"] + "pt"),
+                    ),
+                  ),
+                );
+              }
+            }).toList(),
+          );
+        },
       ),
     );
   }
