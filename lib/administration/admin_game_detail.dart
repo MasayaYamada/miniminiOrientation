@@ -69,7 +69,21 @@ class _AdminGameDetailsState extends State<AdminGameDetails> {
                 return Card(
                   margin: EdgeInsets.all(4.0),
                   child: Dismissible(
-                    onDismissed: (direction) {},
+                    direction: DismissDirection.endToStart,
+                    resizeDuration: Duration(milliseconds: 200),
+                    key: ObjectKey(snapshot),
+                    onDismissed: (direction) {
+                      // TODO: implement your delete function and check direction if needed
+                    },
+                    background: Container(
+                      padding: EdgeInsets.only(right: 28.0),
+                      alignment: AlignmentDirectional.centerEnd,
+                      color: Colors.red,
+                      child: Icon(
+                        Icons.delete_forever,
+                        color: Colors.white,
+                      ),
+                    ),
                     child: ListTile(
                       leading: Image.network(document.data()["imageURL"]),
                       title: Text(document.data()["itemTitle"]),

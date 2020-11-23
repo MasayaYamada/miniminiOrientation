@@ -6,7 +6,7 @@ import 'package:mini_orientailing/administration/admin_home.dart';
 import 'package:mini_orientailing/administration/admin_login.dart';
 import 'package:mini_orientailing/administration/admin_sign_up.dart';
 import 'package:mini_orientailing/top.dart';
-import 'package:mini_orientailing/user_login.dart';
+import 'package:mini_orientailing/user/user_login.dart';
 
 import 'administration/admin_add_times.dart';
 import 'model/User.dart';
@@ -14,10 +14,10 @@ import 'model/User.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(MiniOrientailing());
 }
 
-class MyApp extends StatelessWidget {
+class MiniOrientailing extends StatelessWidget {
   // This widget is the root of your application.
 
   User user = new User();
