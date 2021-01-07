@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_orientailing/user/user_home.dart';
 
 class UserLogin extends StatefulWidget {
   @override
@@ -7,6 +9,8 @@ class UserLogin extends StatefulWidget {
 
 class _UserLoginState extends State<UserLogin> {
   final gameIDTextController = TextEditingController();
+
+  final fireStoreInstance = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +58,21 @@ class _UserLoginState extends State<UserLogin> {
                   color: Colors.yellowAccent,
                   shape: StadiumBorder(),
                   onPressed: () {
-                    //TODO: implement for move to user game controller
+                    fireStoreInstance
+                        .collection('gameIdCollection')
+                        .doc(gameIDTextController.text)
+                        .get()
+                        .then((doc) {
+                      Navigator.push(
+                        context,
+                        new MaterialPageRoute<Null>(
+                          settings: const RouteSettings(name: "/userHome"),
+                          builder: (BuildContext context) => UserHome(
+                            adminEmail: doc.data()['email'].toString(),
+                          ),
+                        ),
+                      );
+                    });
                   }),
             ),
             Padding(
