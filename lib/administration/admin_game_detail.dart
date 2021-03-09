@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:mini_orientailing/administration/admin_add_times.dart';
+
+import 'admin_add_times.dart';
 
 class AdminGameDetails extends StatefulWidget {
   final String email;
@@ -85,7 +86,7 @@ class _AdminGameDetailsState extends State<AdminGameDetails> {
                       ),
                     ),
                     child: ListTile(
-                      leading: Image.network(document.data()["imageURL"]),
+                      leading: Text(document.data()["emoji"]),
                       title: Text(document.data()["itemTitle"]),
                       subtitle: Text(document.data()["itemPoint"] + "pt"),
                     ),

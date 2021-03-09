@@ -5,12 +5,16 @@ class Item {
   String id;
   String name;
   int point;
-  String imageURL;
+  // String imageURL;
+  String emojiName;
+  String emoji;
 
   Item({
     @required this.id,
     @required this.name,
     @required this.point,
-    @required this.imageURL,
+    @required this.emojiName,
+    @required this.emoji,
+    // @required this.imageURL,
   });
 }

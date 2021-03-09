@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_orientailing/user/user_home.dart';
 
@@ -15,7 +16,7 @@ class _UserLoginState extends State<UserLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: Text('ゲーム ログインページ'),
         backgroundColor: Theme.of(context).accentColor,
@@ -58,21 +59,37 @@ class _UserLoginState extends State<UserLogin> {
                   color: Colors.yellowAccent,
                   shape: StadiumBorder(),
                   onPressed: () {
-                    fireStoreInstance
-                        .collection('gameIdCollection')
-                        .doc(gameIDTextController.text)
-                        .get()
-                        .then((doc) {
-                      Navigator.push(
-                        context,
-                        new MaterialPageRoute<Null>(
-                          settings: const RouteSettings(name: "/userHome"),
-                          builder: (BuildContext context) => UserHome(
-                            adminEmail: doc.data()['email'].toString(),
+                    try {
+                      fireStoreInstance
+                          .collection('gameIdCollection')
+                          .doc(gameIDTextController.text)
+                          .get()
+                          .then((doc) {
+                        if (doc.data()["email"] == null) {
+                          Future showMyDialog(
+                              BuildContext context, Widget dialog) {
+                            return showDialog(
+                                context: context,
+                                builder: (BuildContext context) => dialog);
+                          }
+                        }
+                        Navigator.push(
+                          context,
+                          new MaterialPageRoute<Null>(
+                            settings: const RouteSettings(name: "/userHome"),
+                            builder: (BuildContext context) => UserHome(
+                              adminEmail: doc.data()['email'].toString(),
+                              gameId: gameIDTextController.text,
+                            ),
                           ),
-                        ),
+                        );
+                      });
+                    } catch (error) {
+                      return AlertDialog(
+                        title: Text("Error"),
+                        content: Text("ゲームIDが存在しません。もう一度確認をお願いします。"),
                       );
-                    });
+                    }
                   }),
             ),
             Padding(

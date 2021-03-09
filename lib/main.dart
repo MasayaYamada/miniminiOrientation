@@ -10,6 +10,7 @@ import 'package:mini_orientailing/user/user_home.dart';
 import 'package:mini_orientailing/user/user_login.dart';
 
 import 'administration/admin_add_times.dart';
+import 'administration/admin_category_picker.dart';
 import 'model/User.dart';
 
 void main() async {
@@ -51,6 +52,7 @@ class MiniOrientailing extends StatelessWidget {
         '/adminSignUp': (BuildContext context) => AdminSignUp(),
         '/adminAddItems': (BuildContext context) => AdminAddItems(),
         '/adminAddGames': (BuildContext context) => AdminAddGames(),
+        '/adminCategoryPicker': (BuildContext context) => AdminCategoryPicker(),
       },
     );
   }
