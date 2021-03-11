@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:mini_orientailing/administration/admin_category_picker.dart';
 import 'package:mini_orientailing/model/TargetInfo.dart';
 
 class AdminAddItems extends StatefulWidget {
@@ -31,18 +30,13 @@ class _AdminAddItemsState extends State<AdminAddItems> {
 
   _AdminAddItemsState(this.email, this.gameId, this.emoji, this.emojiName);
 
-  //when I use camera
-  // void _selectImage(File pickedImage) {
-  //   _pickedImage = pickedImage;
-  // }
-
   void _savePlace() {
-    // if (_titleController.text.isEmpty ||
-    //     // _pickedEmoji == null ||
-    //     // _pickedImage == null ||
-    //     _pickedPoint == null) {
-    //   return;
-    // }
+    if (_titleController.text.isEmpty ||
+        emojiName == null ||
+        emoji == null ||
+        _pickedPoint == null) {
+      return;
+    }
 
     uploadFile();
     Navigator.of(context).pop();
@@ -54,11 +48,6 @@ class _AdminAddItemsState extends State<AdminAddItems> {
   }
 
   void uploadFile() {
-    // final ref = FirebaseStorage.instance
-    //     .ref()
-    //     .child('item_image')
-    //     .child('${_titleController.text}.jpg');
-
     DateTime date = DateTime.now();
     String itemID = "${date.hour}${date.minute}${date.second}";
 
@@ -81,42 +70,6 @@ class _AdminAddItemsState extends State<AdminAddItems> {
       print("Down load Error");
     }
   }
-
-  // void uploadFile() async {
-  //   String downloadURL;
-  //   DateTime date = DateTime.now();
-  //   String itemID = "${date.hour}${date.minute}${date.second}";
-  //
-  //   final ref = FirebaseStorage.instance
-  //       .ref()
-  //       .child('item_image')
-  //       .child('${_titleController.text}.jpg');
-  //   UploadTask uploadTask = ref.putFile(_pickedImage);
-  //
-  //   uploadTask.whenComplete(() async {
-  //     try {
-  //       downloadURL = await ref.getDownloadURL();
-  //
-  //       fireStoreInstance
-  //           .collection(email)
-  //           .doc(gameId)
-  //           .collection("items")
-  //           .doc(_titleController.text)
-  //           .set({
-  //         "itemId": itemID,
-  //         "itemTitle": _titleController.text,
-  //         "itemPoint": _pickedPoint.text,
-  //         "imageURL": downloadURL
-  //       }).then((_) {
-  //         print("insert success!");
-  //       });
-  //     } catch (onError) {
-  //       print("Down load Error");
-  //     }
-  //   });
-  //
-  //   print('$gameId and YMD $email');
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -164,19 +117,14 @@ class _AdminAddItemsState extends State<AdminAddItems> {
                         child: const Text('カテゴリの選択'),
                         style: ElevatedButton.styleFrom(
                             primary: Colors.orange, onPrimary: Colors.white),
-                        onPressed: () async {
-                          // final List<String> _response =
-                          //     await Navigator.pushNamed(
-                          //         context, '/adminCategoryPicker');
-
-                          final List<String> _response = await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AdminCategoryPicker()),
-                          ) as List<String>;
-
-                          emojiName = _response[0];
-                          emoji = _response[1];
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/adminCategoryPicker')
+                              .then((value) {
+                            setState(() {
+                              emoji = (value as Map)['emoji'];
+                              emojiName = (value as Map)['emojiName'];
+                            });
+                          });
                         },
                       ),
                     ]),
@@ -187,15 +135,15 @@ class _AdminAddItemsState extends State<AdminAddItems> {
               ),
             ),
           ),
-          RaisedButton.icon(
+          ElevatedButton.icon(
             icon: Icon(Icons.add),
             label: Text('登録'),
             onPressed: () {
-              debugPrint(emoji);
+              debugPrint(emojiName);
               _savePlace();
             },
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            color: Theme.of(context).accentColor,
+            // style: MaterialTapTargetSize.shrinkWrap,
+            // color: Theme.of(context).accentColor,
           )
         ],
       ),

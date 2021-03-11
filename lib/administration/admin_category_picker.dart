@@ -37,10 +37,10 @@ class _AdminCategoryPickerState extends State<AdminCategoryPicker> {
                         _selectedName = targetElectricsNameLists[index];
                         _selectedEmoji = targetElectricsEmojiLists[index];
                       });
-                      Navigator.pop(
-                        context,
-                        [_selectedName, _selectedEmoji],
-                      );
+                      Navigator.pop(context, {
+                        'emoji': _selectedEmoji,
+                        'emojiName': _selectedName
+                      });
                     },
                   ),
                 );

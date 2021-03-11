@@ -33,7 +33,7 @@ class _AdminGameDetailsState extends State<AdminGameDetails> {
             onPressed: () => setState(() {
               Navigator.push(
                 context,
-                new MaterialPageRoute<Null>(
+                MaterialPageRoute<Null>(
                   settings: const RouteSettings(name: "/adminAddItems"),
                   builder: (BuildContext context) => AdminAddItems(
                     email: email,
@@ -65,33 +65,41 @@ class _AdminGameDetailsState extends State<AdminGameDetails> {
                     style: TextStyle(color: Colors.red),
                   ),
                 );
-              }
-              if (snapshot.data != null && !snapshot.hasError) {
-                return Card(
-                  margin: EdgeInsets.all(4.0),
-                  child: Dismissible(
-                    direction: DismissDirection.endToStart,
-                    resizeDuration: Duration(milliseconds: 200),
-                    key: ObjectKey(snapshot),
-                    onDismissed: (direction) {
-                      // TODO: implement your delete function and check direction if needed
-                    },
-                    background: Container(
-                      padding: EdgeInsets.only(right: 28.0),
-                      alignment: AlignmentDirectional.centerEnd,
-                      color: Colors.red,
-                      child: Icon(
-                        Icons.delete_forever,
-                        color: Colors.white,
+              } else {
+                if (snapshot.data != null && !snapshot.hasError) {
+                  return Card(
+                    margin: EdgeInsets.all(4.0),
+                    child: Dismissible(
+                      direction: DismissDirection.endToStart,
+                      resizeDuration: Duration(milliseconds: 200),
+                      key: ObjectKey(snapshot),
+                      onDismissed: (direction) {
+                        // TODO: implement your delete function and check direction if needed
+                        fireStoreInstance
+                            .collection(email)
+                            .doc(gameId)
+                            .collection('items')
+                            .doc(document.data()["itemTitle"])
+                            .delete();
+                      },
+                      background: Container(
+                        padding: EdgeInsets.only(right: 28.0),
+                        alignment: AlignmentDirectional.centerEnd,
+                        color: Colors.red,
+                        child: Icon(
+                          Icons.delete_forever,
+                          color: Colors.white,
+                        ),
+                      ),
+                      child: ListTile(
+                        leading: Text(document.data()["emoji"] ?? ''),
+                        title: Text(document.data()["itemTitle"] ?? ''),
+                        subtitle:
+                            Text(document.data()["itemPoint"] + "pt" ?? ''),
                       ),
                     ),
-                    child: ListTile(
-                      leading: Text(document.data()["emoji"]),
-                      title: Text(document.data()["itemTitle"]),
-                      subtitle: Text(document.data()["itemPoint"] + "pt"),
-                    ),
-                  ),
-                );
+                  );
+                }
               }
             }).toList(),
           );
